@@ -1,17 +1,29 @@
 package com.marinamurashev.simpletodo;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+    private ArrayList<String> items;
+    private ArrayAdapter<String> itemsAdapter;
+    private ListView lvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lvItems = (ListView) findViewById(R.id.lvItems);
+        items = new ArrayList<String>();
+        itemsAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, items);
+        lvItems.setAdapter(itemsAdapter);
     }
 
 
