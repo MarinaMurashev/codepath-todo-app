@@ -1,7 +1,9 @@
 # IDE specific
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
+*.iml
+*.ipr
+*.iws
+.idea/
 
 # Built application files
 *.apk
