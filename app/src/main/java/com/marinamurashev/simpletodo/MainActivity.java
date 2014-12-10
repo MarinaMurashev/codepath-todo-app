@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -22,6 +23,11 @@ public class MainActivity extends Activity {
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
+
+    public static final String ITEM_TEXT_EXTRA = "item text";
+    public static final String ITEM_POSITION_EXTRA = "item position";
+
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +89,18 @@ public class MainActivity extends Activity {
         );
 
         lvItems.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter,
-                                            View item, int position, long id){
-                        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-                        startActivity(intent);
-                    }
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapter,
+                                        View item, int position, long id){
+                    Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+
+                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position));
+                    intent.putExtra(ITEM_POSITION_EXTRA, position);
+
+                    startActivityForResult(intent, REQUEST_CODE);
                 }
+            }
         );
     }
 
@@ -111,6 +121,17 @@ public class MainActivity extends Activity {
             FileUtils.writeLines(todoFile, items);
         } catch(IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent i) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            String new_item_text = i.getExtras().getString(ITEM_TEXT_EXTRA);
+            int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
+            items.set(item_position, new_item_text);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
         }
     }
 }

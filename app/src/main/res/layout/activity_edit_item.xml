@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:onClick="onEditItem"
         android:id="@+id/bSaveItem"
         android:layout_below="@+id/etItemValue"
         android:layout_alignRight="@+id/etItemValue"
