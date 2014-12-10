@@ -1,6 +1,7 @@
 package com.marinamurashev.simpletodo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,6 +80,17 @@ public class MainActivity extends Activity {
                     return true;
                 }
             }
+        );
+
+        lvItems.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter,
+                                            View item, int position, long id){
+                        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+                        startActivity(intent);
+                    }
+                }
         );
     }
 
