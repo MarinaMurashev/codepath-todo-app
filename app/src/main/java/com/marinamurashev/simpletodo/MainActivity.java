@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     public static final String ITEM_POSITION_EXTRA = "item position";
 
     private final int REQUEST_CODE = 20;
+    private final String todoListFilename = "todo.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,29 +42,6 @@ public class MainActivity extends Activity {
         lvItems.setAdapter(itemsAdapter);
 
         setupListViewListener();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void onAddItem(View view) {
@@ -106,7 +84,7 @@ public class MainActivity extends Activity {
 
     private void readItems(){
         File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
+        File todoFile = new File(filesDir, todoListFilename);
         try {
             items = new ArrayList<String>(FileUtils.readLines(todoFile));
         } catch (IOException e) {
@@ -116,7 +94,7 @@ public class MainActivity extends Activity {
 
     private void writeItems(){
         File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
+        File todoFile = new File(filesDir, todoListFilename);
         try {
             FileUtils.writeLines(todoFile, items);
         } catch(IOException e) {
