@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Edit Item Below:"
+        android:text="@string/edit_title"
         android:id="@+id/tvEditItemTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="@string/edit_save"
         android:onClick="onEditItem"
         android:id="@+id/bSaveItem"
         android:layout_below="@+id/etItemValue"
