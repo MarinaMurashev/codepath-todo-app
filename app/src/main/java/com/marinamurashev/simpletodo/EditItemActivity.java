@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class EditItemActivity extends Activity {
     private EditText etItemValue;
     private int itemPosition;
+    private String itemOriginalText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +25,25 @@ public class EditItemActivity extends Activity {
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
 
-        String itemText = getIntent().getStringExtra(MainActivity.ITEM_TEXT_EXTRA);
+        itemOriginalText = getIntent().getStringExtra(MainActivity.ITEM_TEXT_EXTRA);
         itemPosition = getIntent().getIntExtra(MainActivity.ITEM_POSITION_EXTRA, 0);
 
-        etItemValue.setText(itemText);
-        etItemValue.setSelection(itemText.length());
+        etItemValue.setText(itemOriginalText);
+        etItemValue.setSelection(itemOriginalText.length());
     }
 
     public void onEditItem(View view) {
         String newItemText = etItemValue.getText().toString();
-
-        Intent i = new Intent(this, EditItemActivity.class);
-        i.putExtra(MainActivity.ITEM_TEXT_EXTRA, newItemText);
-        i.putExtra(MainActivity.ITEM_POSITION_EXTRA, itemPosition);
-        setResult(RESULT_OK, i);
-        finish();
+        if(newItemText.length() > 0) {
+            Intent i = new Intent(this, EditItemActivity.class);
+            i.putExtra(MainActivity.ITEM_TEXT_EXTRA, newItemText);
+            i.putExtra(MainActivity.ITEM_POSITION_EXTRA, itemPosition);
+            setResult(RESULT_OK, i);
+            finish();
+        } else {
+            Toast.makeText(this, getString(R.string.blank_item_error), Toast.LENGTH_SHORT).show();
+            etItemValue.setText(itemOriginalText);
+            etItemValue.setSelection(itemOriginalText.length());
+        }
     }
 }

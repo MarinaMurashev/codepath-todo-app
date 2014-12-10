@@ -47,9 +47,14 @@ public class MainActivity extends Activity {
     public void onAddItem(View view) {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
-        itemsAdapter.add(itemText);
-        etNewItem.setText("");
-        writeItems();
+        if(itemText.length() > 0) {
+            itemsAdapter.add(itemText);
+            etNewItem.setText("");
+            writeItems();
+        } else {
+            Toast.makeText(this, getString(R.string.blank_item_error), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     private void setupListViewListener(){
