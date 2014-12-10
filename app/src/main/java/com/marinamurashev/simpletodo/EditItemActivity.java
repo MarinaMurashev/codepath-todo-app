@@ -29,7 +29,6 @@ public class EditItemActivity extends Activity {
 
         etItemValue.setText(itemText);
         etItemValue.setSelection(itemText.length());
-        etItemValue.requestFocus();
     }
 
     public void onEditItem(View view) {
