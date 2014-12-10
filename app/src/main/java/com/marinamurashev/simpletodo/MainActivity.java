@@ -1,11 +1,14 @@
 package com.marinamurashev.simpletodo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -23,6 +26,7 @@ public class MainActivity extends Activity {
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
+    private EditText etNewItem;
 
     public static final String ITEM_TEXT_EXTRA = "item text";
     public static final String ITEM_POSITION_EXTRA = "item position";
@@ -34,6 +38,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        etNewItem = (EditText) findViewById(R.id.etNewItem);
         lvItems = (ListView) findViewById(R.id.lvItems);
 
         readItems();
@@ -45,6 +50,8 @@ public class MainActivity extends Activity {
     }
 
     public void onAddItem(View view) {
+        hideSoftKeyboard();
+
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         if(itemText.length() > 0) {
@@ -53,7 +60,6 @@ public class MainActivity extends Activity {
             writeItems();
         } else {
             Toast.makeText(this, getString(R.string.blank_item_error), Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -115,6 +121,19 @@ public class MainActivity extends Activity {
             items.set(item_position, new_item_text);
             itemsAdapter.notifyDataSetChanged();
             writeItems();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSoftKeyboard();
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if(imm.isAcceptingText()) {
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         }
     }
 }
