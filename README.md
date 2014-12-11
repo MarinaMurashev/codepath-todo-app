@@ -12,7 +12,7 @@ Completed user stories:
 
 Notes:
 
-Spent time on not allowing user to submit blank items, both from the main screen and from the edit screen. In addition, spent time on keyboard experience: keyboard should not be visible on the main screen when an item is successfully added, and when a user returns to that screen after editing an item.
+Spent time on not allowing user to submit blank items, both from the main screen and from the edit screen. In addition, spent time on keyboard experience: keyboard should hide on the main screen when an item is successfully added, and when a user returns to that screen after editing an item.
 
 Walkthrough of all user stories:
 
