@@ -1,6 +1,6 @@
 # Simple Todo Android App
 
-This is an Android demo application for managing Todo items: add, edit, and delete items. See the [Todo App Tutorial](https://docs.google.com/a/thoughtworks.com/presentation/d/15JnmfmFa0hJOEkBhG_TeymChLzDzpOTJvBlOj29A9fY/edit#slide=id.gf45d6347_3_0) for a step-by-step tutorial for creating this app without the edit feature.
+This is an Android demo application for managing Todo items: add, edit, and delete items. See the [Todo App Tutorial](http://courses.codepath.com/snippets/intro_to_android/prework) for a step-by-step tutorial for creating this app.
 
 Time spent: 10 hours spent in total
 
