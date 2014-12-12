@@ -25,7 +25,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item, parent, false);
         }
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-        tvName.setText(item.name);
+        tvName.setText(item.getName());
         return convertView;
     }
 

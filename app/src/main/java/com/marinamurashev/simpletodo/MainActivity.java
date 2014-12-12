@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
                                         View item, int position, long id){
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
 
-                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position).name);
+                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position).getName());
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
                     startActivityForResult(intent, REQUEST_CODE);
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             ArrayList<String> item_strings = new ArrayList<String>();
             for(Item item : items){
-                item_strings.add(item.name);
+                item_strings.add(item.getName());
             }
             FileUtils.writeLines(todoFile, item_strings);
         } catch(IOException e) {
@@ -128,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             String new_item_text = i.getExtras().getString(ITEM_TEXT_EXTRA);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
-            items.get(item_position).name = new_item_text;
+            items.get(item_position).setName(new_item_text);
             itemsAdapter.notifyDataSetChanged();
             writeItems();
         }
