@@ -128,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             String new_item_text = i.getExtras().getString(ITEM_TEXT_EXTRA);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
-            items.set(item_position, new Item(new_item_text));
+            items.get(item_position).name = new_item_text;
             itemsAdapter.notifyDataSetChanged();
             writeItems();
         }
