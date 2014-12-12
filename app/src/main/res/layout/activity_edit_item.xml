@@ -24,7 +24,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/tvEditItemTitle"
         android:layout_alignEnd="@+id/tvEditItemTitle"
-        android:layout_below="@+id/tvEditItemTitle" />
+        android:layout_below="@+id/tvEditItemTitle"
+        android:textColor="#ff5301bc"/>
 
     <Button
         android:layout_width="wrap_content"
