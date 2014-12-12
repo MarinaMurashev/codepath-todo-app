@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -11,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
+import com.marinamurashev.simpletodo.models.Item;
 
 import org.apache.commons.io.FileUtils;
 
@@ -20,8 +24,8 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
-    private ArrayList<String> items;
-    private ArrayAdapter<String> itemsAdapter;
+    private ArrayList<Item> items = new ArrayList<Item>();
+    private ItemsAdapter itemsAdapter;
     private ListView lvItems;
     private EditText etNewItem;
 
@@ -40,9 +44,10 @@ public class MainActivity extends ActionBarActivity {
         lvItems = (ListView) findViewById(R.id.lvItems);
 
         readItems();
-        itemsAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
+
+        itemsAdapter = new ItemsAdapter(this, items);
+        ListView listView = (ListView) findViewById(R.id.lvItems);
+        listView.setAdapter(itemsAdapter);
 
         setupListViewListener();
     }
@@ -53,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         if(itemText.length() > 0) {
-            itemsAdapter.add(itemText);
+            itemsAdapter.add(new Item(itemText));
             etNewItem.setText("");
             writeItems();
         } else {
@@ -82,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
                                         View item, int position, long id){
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
 
-                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position));
+                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position).name);
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
                     startActivityForResult(intent, REQUEST_CODE);
@@ -95,9 +100,12 @@ public class MainActivity extends ActionBarActivity {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, todoListFilename);
         try {
-            items = new ArrayList<String>(FileUtils.readLines(todoFile));
+            ArrayList<String> item_names = new ArrayList<String>(FileUtils.readLines(todoFile));
+            for(String item_name : item_names){
+                items.add(new Item(item_name));
+            }
         } catch (IOException e) {
-            items = new ArrayList<String>();
+            return;
         }
     }
 
@@ -105,7 +113,11 @@ public class MainActivity extends ActionBarActivity {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, todoListFilename);
         try {
-            FileUtils.writeLines(todoFile, items);
+            ArrayList<String> item_strings = new ArrayList<String>();
+            for(Item item : items){
+                item_strings.add(item.name);
+            }
+            FileUtils.writeLines(todoFile, item_strings);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -116,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             String new_item_text = i.getExtras().getString(ITEM_TEXT_EXTRA);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
-            items.set(item_position, new_item_text);
+            items.set(item_position, new Item(new_item_text));
             itemsAdapter.notifyDataSetChanged();
             writeItems();
         }
