@@ -7,6 +7,8 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:textColor="#ff36016d"
+        android:textStyle="bold"
+        android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha"
         style="@style/TextAppearance.AppCompat.Medium"
         android:padding="@dimen/abc_text_size_medium_material" />
 </LinearLayout>
