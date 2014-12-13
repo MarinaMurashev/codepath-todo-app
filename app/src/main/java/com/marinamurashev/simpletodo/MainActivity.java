@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
     private ListView lvItems;
     private EditText etNewItem;
 
-    public static final String ITEM_TEXT_EXTRA = "item text";
+    public static final String ITEM_EXTRA = "item";
     public static final String ITEM_POSITION_EXTRA = "item position";
 
     private final int REQUEST_CODE = 20;
@@ -87,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
                                         View item, int position, long id){
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
 
-                    intent.putExtra(ITEM_TEXT_EXTRA, items.get(position).getName());
+                    intent.putExtra(ITEM_EXTRA, items.get(position));
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
                     startActivityForResult(intent, REQUEST_CODE);
@@ -126,9 +124,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            String new_item_text = i.getExtras().getString(ITEM_TEXT_EXTRA);
+            Item new_item = (Item) i.getExtras().getSerializable(ITEM_EXTRA);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
-            items.get(item_position).setName(new_item_text);
+            items.set(item_position, new_item);
             itemsAdapter.notifyDataSetChanged();
             writeItems();
         }

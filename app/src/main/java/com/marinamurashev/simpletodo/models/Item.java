@@ -1,6 +1,9 @@
 package com.marinamurashev.simpletodo.models;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
+    private static final long serialVersionUID = 5177222050535318633L;
     private String name;
 
     public Item(String name){
