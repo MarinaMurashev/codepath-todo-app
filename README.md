@@ -10,6 +10,7 @@ Completed user stories:
  * [x] Required: User can delete a todo item by long clicking on an item.
  * [x] Required: User can edit a todo item by clicking on an item.
  * [x] Optional: Use custom adapter for the items in the list.
+ * [x] Optional: Persists todo items in SQLite
 
 Notes:
 

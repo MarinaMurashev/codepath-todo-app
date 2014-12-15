@@ -31,12 +31,15 @@ public class EditItemActivity extends ActionBarActivity {
 
     public void onEditItem(View view) {
         String newItemText = etItemValue.getText().toString();
+
         if(newItemText.length() > 0) {
             Intent i = new Intent(this, EditItemActivity.class);
             item.setName(newItemText);
             item.save();
+
             i.putExtra(MainActivity.ITEM_ID_EXTRA, item.getId());
             i.putExtra(MainActivity.ITEM_POSITION_EXTRA, itemPosition);
+
             setResult(RESULT_OK, i);
             finish();
         } else {
