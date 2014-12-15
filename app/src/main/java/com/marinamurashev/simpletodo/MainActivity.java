@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.activeandroid.util.SQLiteUtils;
 import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
 import com.marinamurashev.simpletodo.models.Item;
 
@@ -19,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -95,19 +98,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void readItems(){
-        Item item = new Item("test");
-        item.save();
-
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, todoListFilename);
-        try {
-            ArrayList<String> item_names = new ArrayList<String>(FileUtils.readLines(todoFile));
-            for(String item_name : item_names){
-                items.add(new Item(item_name));
-            }
-        } catch (IOException e) {
-            return;
-        }
+        items = (ArrayList) SQLiteUtils.rawQuery(Item.class, "SELECT * from items", null);
     }
 
     private void writeItems(){
