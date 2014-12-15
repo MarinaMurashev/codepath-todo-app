@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -12,24 +11,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.activeandroid.util.SQLiteUtils;
 import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
 import com.marinamurashev.simpletodo.models.Item;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<Item> items;
     private ItemsAdapter itemsAdapter;
     private ListView lvItems;
 
-    public static final String ITEM_EXTRA = "item";
     public static final String ITEM_POSITION_EXTRA = "item position";
     public static final String ITEM_ID_EXTRA = "item id";
 
@@ -42,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         lvItems = (ListView) findViewById(R.id.lvItems);
 
-        items = (ArrayList) SQLiteUtils.rawQuery(Item.class, "SELECT * from items", null);
+        items = (ArrayList) Item.getAll();
 
         itemsAdapter = new ItemsAdapter(this, items);
         ListView listView = (ListView) findViewById(R.id.lvItems);
@@ -87,7 +79,6 @@ public class MainActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> adapter,
                                         View item, int position, long id){
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-                    intent.putExtra(ITEM_EXTRA, items.get(position));
                     intent.putExtra(ITEM_ID_EXTRA, items.get(position).getId());
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
