@@ -3,6 +3,7 @@ package com.marinamurashev.simpletodo;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +23,8 @@ public class EditItemActivity extends ActionBarActivity {
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
 
-        item = (Item) getIntent().getSerializableExtra(MainActivity.ITEM_EXTRA);
+        long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);
+        item = Item.getItemWithId(item_id);
         itemPosition = getIntent().getIntExtra(MainActivity.ITEM_POSITION_EXTRA, 0);
 
         setItemEditFieldText();
@@ -33,7 +35,9 @@ public class EditItemActivity extends ActionBarActivity {
         if(newItemText.length() > 0) {
             Intent i = new Intent(this, EditItemActivity.class);
             item.setName(newItemText);
+            item.save();
             i.putExtra(MainActivity.ITEM_EXTRA, item);
+            i.putExtra(MainActivity.ITEM_ID_EXTRA, item.getId());
             i.putExtra(MainActivity.ITEM_POSITION_EXTRA, itemPosition);
             setResult(RESULT_OK, i);
             finish();

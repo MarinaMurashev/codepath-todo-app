@@ -1,8 +1,11 @@
 package com.marinamurashev.simpletodo.models;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import java.io.Serializable;
 
@@ -28,5 +31,9 @@ public class Item extends Model implements Serializable {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public static Item getItemWithId(long id) {
+        return new Select().from(Item.class).where("id = ?", id).executeSingle();
     }
 }

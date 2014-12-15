@@ -28,10 +28,10 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<Item> items = new ArrayList<Item>();
     private ItemsAdapter itemsAdapter;
     private ListView lvItems;
-    private EditText etNewItem;
 
     public static final String ITEM_EXTRA = "item";
     public static final String ITEM_POSITION_EXTRA = "item position";
+    public static final String ITEM_ID_EXTRA = "item id";
 
     private final int REQUEST_CODE = 20;
 
@@ -40,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etNewItem = (EditText) findViewById(R.id.etNewItem);
         lvItems = (ListView) findViewById(R.id.lvItems);
 
         items = (ArrayList) SQLiteUtils.rawQuery(Item.class, "SELECT * from items", null);
@@ -73,7 +72,9 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapter,
                                                View item, int position, long id){
+                    Item item_to_delete = items.get(position);
                     items.remove(position);
+                    item_to_delete.delete();
                     itemsAdapter.notifyDataSetChanged();
                     return true;
                 }
@@ -86,8 +87,8 @@ public class MainActivity extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> adapter,
                                         View item, int position, long id){
                     Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-
                     intent.putExtra(ITEM_EXTRA, items.get(position));
+                    intent.putExtra(ITEM_ID_EXTRA, items.get(position).getId());
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
                     startActivityForResult(intent, REQUEST_CODE);
@@ -99,9 +100,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            Item new_item = (Item) i.getExtras().getSerializable(ITEM_EXTRA);
+            long item_id = i.getExtras().getLong(ITEM_ID_EXTRA);
+            Item item = Item.getItemWithId(item_id);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
-            items.set(item_position, new_item);
+            items.set(item_position, item);
             itemsAdapter.notifyDataSetChanged();
         }
     }
