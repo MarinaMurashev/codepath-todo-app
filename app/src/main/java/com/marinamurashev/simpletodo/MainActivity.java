@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
     public static final String ITEM_POSITION_EXTRA = "item position";
 
     private final int REQUEST_CODE = 20;
-    private final String todoListFilename = "todo.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
         etNewItem = (EditText) findViewById(R.id.etNewItem);
         lvItems = (ListView) findViewById(R.id.lvItems);
 
-        readItems();
+        items = (ArrayList) SQLiteUtils.rawQuery(Item.class, "SELECT * from items", null);
 
         itemsAdapter = new ItemsAdapter(this, items);
         ListView listView = (ListView) findViewById(R.id.lvItems);
@@ -59,9 +58,10 @@ public class MainActivity extends ActionBarActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         if(itemText.length() > 0) {
-            itemsAdapter.add(new Item(itemText));
+            Item item = new Item(itemText);
+            item.save();
+            itemsAdapter.add(item);
             etNewItem.setText("");
-            writeItems();
         } else {
             Toast.makeText(this, getString(R.string.blank_item_error), Toast.LENGTH_SHORT).show();
         }
@@ -75,7 +75,6 @@ public class MainActivity extends ActionBarActivity {
                                                View item, int position, long id){
                     items.remove(position);
                     itemsAdapter.notifyDataSetChanged();
-                    writeItems();
                     return true;
                 }
             }
@@ -97,24 +96,6 @@ public class MainActivity extends ActionBarActivity {
         );
     }
 
-    private void readItems(){
-        items = (ArrayList) SQLiteUtils.rawQuery(Item.class, "SELECT * from items", null);
-    }
-
-    private void writeItems(){
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, todoListFilename);
-        try {
-            ArrayList<String> item_strings = new ArrayList<String>();
-            for(Item item : items){
-                item_strings.add(item.getName());
-            }
-            FileUtils.writeLines(todoFile, item_strings);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
@@ -122,7 +103,6 @@ public class MainActivity extends ActionBarActivity {
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
             items.set(item_position, new_item);
             itemsAdapter.notifyDataSetChanged();
-            writeItems();
         }
     }
 
