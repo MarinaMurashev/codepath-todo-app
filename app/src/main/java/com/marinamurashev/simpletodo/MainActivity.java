@@ -95,6 +95,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void readItems(){
+        Item item = new Item("test");
+        item.save();
+
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, todoListFilename);
         try {
