@@ -3,11 +3,14 @@ package com.marinamurashev.simpletodo;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.marinamurashev.simpletodo.models.Item;
+
+import java.sql.Date;
 
 
 public class EditItemActivity extends ActionBarActivity {

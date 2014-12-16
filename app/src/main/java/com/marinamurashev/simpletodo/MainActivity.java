@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
 import com.marinamurashev.simpletodo.models.Item;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -48,7 +49,8 @@ public class MainActivity extends ActionBarActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         if(itemText.length() > 0) {
-            Item item = new Item(itemText);
+            Item item = new Item();
+            item.setName(itemText);
             item.save();
 
             items.add(item);
