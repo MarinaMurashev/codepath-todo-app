@@ -37,17 +37,29 @@
         android:onClick="onEditItem"
         android:id="@+id/bSaveItem"
         android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/etItemValue"
-        android:layout_alignEnd="@+id/etItemValue" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Due Date"
-        android:id="@+id/button"
+        android:text="@string/set_due_date_button"
+        android:id="@+id/bDueDate"
         android:onClick="showDatePickerDialog"
         android:layout_below="@+id/etItemValue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="52dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvDueDate"
+        android:layout_alignTop="@+id/bDueDate"
+        android:layout_alignBottom="@+id/bDueDate"
+        android:layout_alignRight="@+id/bSaveItem"
+        android:layout_alignEnd="@+id/bSaveItem"
+        android:layout_toRightOf="@+id/etItemValue"
+        android:layout_toEndOf="@+id/etItemValue" />
 </RelativeLayout>

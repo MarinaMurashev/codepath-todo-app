@@ -6,20 +6,26 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
 import java.util.Calendar;
+import java.sql.Date;
 
 
 public class AddItemActivity extends ActionBarActivity {
 
     private EditText etItemValue;
+    private TextView tvDueDate;
+    private Date itemDueDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,7 @@ public class AddItemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_edit_item);
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
+        tvDueDate = (TextView) findViewById(R.id.tvDueDate);
     }
 
 
@@ -35,19 +42,26 @@ public class AddItemActivity extends ActionBarActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-            Toast.makeText(getActivity(), "date is set", Toast.LENGTH_SHORT).show();
+            AddItemActivity addItemActivity = (AddItemActivity) getActivity();
+            TextView tvDueDate = (TextView) addItemActivity.findViewById(R.id.tvDueDate);
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(year, month, day);
+
+            java.util.Date utilStartDate = cal.getTime();
+            addItemActivity.itemDueDate = new java.sql.Date(utilStartDate.getTime());
+
+            String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
+            tvDueDate.setText(date_text);
         }
     }
 
@@ -57,6 +71,7 @@ public class AddItemActivity extends ActionBarActivity {
         if(item_name.length() > 0) {
             Item item = new Item();
             item.setName(etItemValue.getText().toString());
+            item.setDueDate(itemDueDate);
             item.save();
 
             Intent i = new Intent(this, AddItemActivity.class);
