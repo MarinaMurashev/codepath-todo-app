@@ -14,18 +14,6 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/btnAddItem" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etNewItem"
-        android:layout_alignTop="@+id/btnAddItem"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/btnAddItem"
-        android:layout_toStartOf="@+id/btnAddItem"
-        android:layout_alignParentBottom="true"
-        android:hint="@string/edit_item_hint" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +22,8 @@
         android:onClick="onAddItem"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

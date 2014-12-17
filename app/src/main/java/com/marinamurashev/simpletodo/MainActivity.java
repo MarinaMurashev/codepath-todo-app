@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,7 +27,8 @@ public class MainActivity extends ActionBarActivity {
     public static final String ITEM_POSITION_EXTRA = "item position";
     public static final String ITEM_ID_EXTRA = "item id";
 
-    private final int REQUEST_CODE = 20;
+    private final int EDIT_REQUEST_CODE = 20;
+    private final int ADD_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +46,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onAddItem(View view) {
-        hideSoftKeyboard();
-
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-        String itemText = etNewItem.getText().toString();
-        if(itemText.length() > 0) {
-            Item item = new Item();
-            item.setName(itemText);
-            item.save();
-
-            items.add(item);
-            itemsAdapter.notifyDataSetChanged();
-            etNewItem.setText("");
-        } else {
-            Toast.makeText(this, getString(R.string.blank_item_error), Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+        startActivityForResult(intent, ADD_REQUEST_CODE);
     }
 
     private void setupListViewListener(){
@@ -83,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
                     intent.putExtra(ITEM_ID_EXTRA, items.get(position).getId());
                     intent.putExtra(ITEM_POSITION_EXTRA, position);
 
-                    startActivityForResult(intent, REQUEST_CODE);
+                    startActivityForResult(intent, EDIT_REQUEST_CODE);
                 }
             }
         );
@@ -91,11 +80,18 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent i) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE) {
             long item_id = i.getExtras().getLong(ITEM_ID_EXTRA);
             Item item = Item.getItemWithId(item_id);
             int item_position = i.getExtras().getInt(ITEM_POSITION_EXTRA);
             items.set(item_position, item);
+            itemsAdapter.notifyDataSetChanged();
+        }
+
+        if (resultCode == RESULT_OK && requestCode == ADD_REQUEST_CODE) {
+            long item_id = i.getExtras().getLong(ITEM_ID_EXTRA);
+            Item item = Item.getItemWithId(item_id);
+            items.add(item);
             itemsAdapter.notifyDataSetChanged();
         }
     }
