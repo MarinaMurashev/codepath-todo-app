@@ -1,21 +1,18 @@
-package com.marinamurashev.simpletodo;
+package com.marinamurashev.simpletodo.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
 import com.marinamurashev.simpletodo.models.Item;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 
