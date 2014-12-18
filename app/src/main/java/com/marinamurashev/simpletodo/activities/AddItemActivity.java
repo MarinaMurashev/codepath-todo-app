@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +16,7 @@ import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
 import java.util.Calendar;
-import java.sql.Date;
+import java.util.Date;
 
 
 public class AddItemActivity extends ActionBarActivity {
@@ -57,8 +55,7 @@ public class AddItemActivity extends ActionBarActivity {
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day);
 
-            java.util.Date utilStartDate = cal.getTime();
-            addItemActivity.itemDueDate = new java.sql.Date(utilStartDate.getTime());
+            addItemActivity.itemDueDate = cal.getTime();
 
             String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
             tvDueDate.setText(date_text);

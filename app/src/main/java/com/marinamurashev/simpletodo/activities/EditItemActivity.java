@@ -15,9 +15,7 @@ import android.widget.Toast;
 import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
-import org.w3c.dom.Text;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.Calendar;
 
 
@@ -77,8 +75,7 @@ public class EditItemActivity extends ActionBarActivity {
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day);
 
-            java.util.Date utilDate = cal.getTime();
-            editItemActivity.itemDueDate = new java.sql.Date(utilDate.getTime());
+            editItemActivity.itemDueDate = cal.getTime();
 
             String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
             TextView tvDueDate = (TextView) editItemActivity.findViewById(R.id.tvDueDate);
@@ -117,9 +114,8 @@ public class EditItemActivity extends ActionBarActivity {
     }
 
     private void setItemDueDateText(){
-        java.util.Date date = new java.util.Date(itemDueDate.getTime());
         Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
+        cal.setTime(itemDueDate);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);

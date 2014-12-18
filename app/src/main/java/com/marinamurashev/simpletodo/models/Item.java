@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "Items")
