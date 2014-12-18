@@ -9,16 +9,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
+import org.w3c.dom.Text;
+
+import java.sql.Date;
 import java.util.Calendar;
 
 
 public class EditItemActivity extends ActionBarActivity {
     private EditText etItemValue;
+    private TextView tvDueDate;
+    private Date itemDueDate;
     private int itemPosition;
     private Item item;
 
@@ -28,12 +34,16 @@ public class EditItemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_edit_item);
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
+        tvDueDate = (TextView) findViewById(R.id.tvDueDate);
 
         long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);
         item = Item.getItemWithId(item_id);
         itemPosition = getIntent().getIntExtra(MainActivity.ITEM_POSITION_EXTRA, 0);
+        itemDueDate = item.getDueDate();
 
         setItemEditFieldText();
+        if(itemDueDate != null)
+            setItemDueDateText();
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -41,18 +51,27 @@ public class EditItemActivity extends ActionBarActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
+            EditItemActivity editItemActivity = (EditItemActivity) getActivity();
+            Date itemDueDate = editItemActivity.itemDueDate;
+
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
+            if(itemDueDate != null ){
+                java.util.Date date = new java.util.Date(itemDueDate.getTime());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                year = cal.get(Calendar.YEAR);
+                month = cal.get(Calendar.MONTH);
+                day = cal.get(Calendar.DAY_OF_MONTH);
+            }
+
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
             Toast.makeText(getActivity(), "date is set", Toast.LENGTH_SHORT).show();
         }
     }
@@ -84,5 +103,16 @@ public class EditItemActivity extends ActionBarActivity {
     private void setItemEditFieldText(){
         etItemValue.setText(item.getName());
         etItemValue.setSelection(item.getName().length());
+    }
+
+    private void setItemDueDateText(){
+        java.util.Date date = new java.util.Date(itemDueDate.getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
+        tvDueDate.setText(text);
     }
 }
