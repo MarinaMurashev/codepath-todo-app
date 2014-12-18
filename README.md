@@ -10,16 +10,19 @@ Completed user stories:
  * [x] Required: User can delete a todo item by long clicking on an item.
  * [x] Required: User can edit a todo item by clicking on an item.
  * [x] Optional: Use custom adapter for the items in the list.
- * [x] Optional: Persists todo items in SQLite
+ * [x] Optional: Persists todo items in SQLite.
+ * [x] Optional: Adds optional due date to item.
 
 Notes:
 
 Spent time on the following:
 
-* Not allowing user to submit blank items, both from the main screen and from the edit screen.
-* Keyboard experience: keyboard should hide on the main screen when an item is successfully added, and when a user returns to that screen after editing an item.
-* Passing the Item object as serializable extras instead of just string extras so that the MainActivity class doesn't have to know the details of how the EditActivity class will operate on the Item object.
+* Not allowing user to submit blank items, both from the add screen and from the edit screen.
 * Styling the item list in the main activity, as well as styling the edit activity.
+* Ensuring that AddItemActivity's and EditItemActivity's shared view changes text on it for what makes sense to the action.
+* Due date cannot be before today.
+* Changes function of the return key on the keyboard to a 'done' key when editing the item's text.
+* Able to clear date once set: long click on the displayed date from the AddItemActivity or EditItemActivity.
 
 Walkthrough of all user stories:
 
