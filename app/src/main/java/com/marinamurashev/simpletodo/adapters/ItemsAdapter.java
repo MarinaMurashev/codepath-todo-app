@@ -1,6 +1,7 @@
 package com.marinamurashev.simpletodo.adapters;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
 
     private static class ViewHolder {
         TextView name;
+        TextView dueDate;
     }
 
     public ItemsAdapter(Context context, ArrayList<Item> items) {
@@ -32,12 +34,15 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
+            viewHolder.dueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.name.setText(item.getName());
+        if(item.getDueDate() != null)
+            viewHolder.dueDate.setText(DateFormat.getDateFormat(getContext()).format(item.getDueDate()));
 
         return convertView;
     }
