@@ -24,6 +24,7 @@ public class AddItemActivity extends ActionBarActivity {
 
     private EditText etItemValue;
     private TextView tvDueDate;
+    private TextView tvItemFormTitle;
     private Item item = new Item();
 
     @Override
@@ -33,6 +34,9 @@ public class AddItemActivity extends ActionBarActivity {
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
         tvDueDate = (TextView) findViewById(R.id.tvDueDate);
+        tvItemFormTitle = (TextView) findViewById(R.id.tvItemFormTitle);
+
+        tvItemFormTitle.setText(R.string.add_form_title);
     }
 
 
@@ -63,7 +67,7 @@ public class AddItemActivity extends ActionBarActivity {
         }
     }
 
-    public void onEditItem(View view) {
+    public void onSaveItem(View view) {
         String item_name = etItemValue.getText().toString();
 
         if(item_name.length() > 0) {

@@ -23,6 +23,7 @@ import java.util.Calendar;
 public class EditItemActivity extends ActionBarActivity {
     private EditText etItemValue;
     private TextView tvDueDate;
+    private TextView tvItemFormTitle;
     private int itemPosition;
     private Item item;
 
@@ -33,6 +34,9 @@ public class EditItemActivity extends ActionBarActivity {
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
         tvDueDate = (TextView) findViewById(R.id.tvDueDate);
+        tvItemFormTitle = (TextView) findViewById(R.id.tvItemFormTitle);
+
+        tvItemFormTitle.setText(R.string.edit_form_title);
 
         long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);
         item = Item.getItemWithId(item_id);
@@ -80,7 +84,7 @@ public class EditItemActivity extends ActionBarActivity {
         }
     }
 
-    public void onEditItem(View view) {
+    public void onSaveItem(View view) {
         String newItemText = etItemValue.getText().toString();
 
         if(newItemText.length() > 0) {
