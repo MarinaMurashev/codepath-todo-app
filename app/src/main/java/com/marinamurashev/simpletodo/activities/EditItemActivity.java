@@ -23,7 +23,6 @@ import java.util.Calendar;
 public class EditItemActivity extends ActionBarActivity {
     private EditText etItemValue;
     private TextView tvDueDate;
-    private Date itemDueDate;
     private int itemPosition;
     private Item item;
 
@@ -38,10 +37,9 @@ public class EditItemActivity extends ActionBarActivity {
         long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);
         item = Item.getItemWithId(item_id);
         itemPosition = getIntent().getIntExtra(MainActivity.ITEM_POSITION_EXTRA, 0);
-        itemDueDate = item.getDueDate();
 
         setItemEditFieldText();
-        if(itemDueDate != null)
+        if(item.isDueDateSet())
             setItemDueDateText();
     }
 
@@ -51,15 +49,15 @@ public class EditItemActivity extends ActionBarActivity {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             EditItemActivity editItemActivity = (EditItemActivity) getActivity();
-            Date itemDueDate = editItemActivity.itemDueDate;
+            Item item = editItemActivity.item;
 
             final Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
-            if(itemDueDate != null ){
-                cal.setTime(itemDueDate);
+            if(item.isDueDateSet() ){
+                cal.setTime(item.getDueDate());
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
@@ -75,7 +73,7 @@ public class EditItemActivity extends ActionBarActivity {
             cal.set(year, month, day);
             Date item_date = cal.getTime();
 
-            editItemActivity.itemDueDate = item_date;
+            editItemActivity.item.setDueDate(item_date);
 
             TextView tvDueDate = (TextView) editItemActivity.findViewById(R.id.tvDueDate);
             tvDueDate.setText(DateFormat.getDateFormat(getActivity()).format(item_date));
@@ -88,7 +86,6 @@ public class EditItemActivity extends ActionBarActivity {
         if(newItemText.length() > 0) {
             Intent i = new Intent(this, EditItemActivity.class);
             item.setName(newItemText);
-            item.setDueDate(itemDueDate);
             item.save();
 
             i.putExtra(MainActivity.ITEM_ID_EXTRA, item.getId());
@@ -114,7 +111,7 @@ public class EditItemActivity extends ActionBarActivity {
 
     private void setItemDueDateText(){
         Calendar cal = Calendar.getInstance();
-        cal.setTime(itemDueDate);
+        cal.setTime(item.getDueDate());
         String formatted_date = DateFormat.getDateFormat(this).format(cal.getTime());
         tvDueDate.setText(formatted_date);
     }

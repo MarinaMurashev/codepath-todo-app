@@ -44,6 +44,12 @@ public class Item extends Model {
         this.dueDate = dueDate;
     }
 
+    public boolean isDueDateSet(){
+        if(dueDate != null)
+            return true;
+        return false;
+    }
+
     public static Item getItemWithId(long id) {
         return new Select().from(Item.class).where("id = ?", id).executeSingle();
     }

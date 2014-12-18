@@ -24,7 +24,7 @@ public class AddItemActivity extends ActionBarActivity {
 
     private EditText etItemValue;
     private TextView tvDueDate;
-    private Date itemDueDate;
+    private Item item = new Item();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class AddItemActivity extends ActionBarActivity {
             cal.set(year, month, day);
             Date item_date = cal.getTime();
 
-            addItemActivity.itemDueDate = item_date;
+            addItemActivity.item.setDueDate(item_date);
 
             tvDueDate.setText(DateFormat.getDateFormat(getActivity()).format(item_date));
         }
@@ -67,9 +67,7 @@ public class AddItemActivity extends ActionBarActivity {
         String item_name = etItemValue.getText().toString();
 
         if(item_name.length() > 0) {
-            Item item = new Item();
             item.setName(etItemValue.getText().toString());
-            item.setDueDate(itemDueDate);
             item.save();
 
             Intent i = new Intent(this, AddItemActivity.class);
