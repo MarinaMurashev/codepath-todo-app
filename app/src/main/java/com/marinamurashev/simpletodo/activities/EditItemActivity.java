@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
+import android.text.format.DateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -52,15 +53,13 @@ public class EditItemActivity extends ActionBarActivity {
             EditItemActivity editItemActivity = (EditItemActivity) getActivity();
             Date itemDueDate = editItemActivity.itemDueDate;
 
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            final Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
             if(itemDueDate != null ){
-                java.util.Date date = new java.util.Date(itemDueDate.getTime());
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);
+                cal.setTime(itemDueDate);
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
@@ -74,12 +73,12 @@ public class EditItemActivity extends ActionBarActivity {
 
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day);
+            Date item_date = cal.getTime();
 
-            editItemActivity.itemDueDate = cal.getTime();
+            editItemActivity.itemDueDate = item_date;
 
-            String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
             TextView tvDueDate = (TextView) editItemActivity.findViewById(R.id.tvDueDate);
-            tvDueDate.setText(date_text);
+            tvDueDate.setText(DateFormat.getDateFormat(getActivity()).format(item_date));
         }
     }
 
@@ -116,10 +115,7 @@ public class EditItemActivity extends ActionBarActivity {
     private void setItemDueDateText(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(itemDueDate);
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        String text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
-        tvDueDate.setText(text);
+        String formatted_date = DateFormat.getDateFormat(this).format(cal.getTime());
+        tvDueDate.setText(formatted_date);
     }
 }

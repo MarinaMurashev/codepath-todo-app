@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,10 +41,10 @@ public class AddItemActivity extends ActionBarActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
@@ -54,11 +55,11 @@ public class AddItemActivity extends ActionBarActivity {
 
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day);
+            Date item_date = cal.getTime();
 
-            addItemActivity.itemDueDate = cal.getTime();
+            addItemActivity.itemDueDate = item_date;
 
-            String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
-            tvDueDate.setText(date_text);
+            tvDueDate.setText(DateFormat.getDateFormat(getActivity()).format(item_date));
         }
     }
 
