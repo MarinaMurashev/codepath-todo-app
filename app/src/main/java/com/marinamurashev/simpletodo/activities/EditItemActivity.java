@@ -72,7 +72,17 @@ public class EditItemActivity extends ActionBarActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Toast.makeText(getActivity(), "date is set", Toast.LENGTH_SHORT).show();
+            EditItemActivity editItemActivity = (EditItemActivity) getActivity();
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(year, month, day);
+
+            java.util.Date utilDate = cal.getTime();
+            editItemActivity.itemDueDate = new java.sql.Date(utilDate.getTime());
+
+            String date_text = Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day);
+            TextView tvDueDate = (TextView) editItemActivity.findViewById(R.id.tvDueDate);
+            tvDueDate.setText(date_text);
         }
     }
 
@@ -82,6 +92,7 @@ public class EditItemActivity extends ActionBarActivity {
         if(newItemText.length() > 0) {
             Intent i = new Intent(this, EditItemActivity.class);
             item.setName(newItemText);
+            item.setDueDate(itemDueDate);
             item.save();
 
             i.putExtra(MainActivity.ITEM_ID_EXTRA, item.getId());
