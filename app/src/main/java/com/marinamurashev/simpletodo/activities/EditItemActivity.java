@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.models.Item;
 
 import android.text.format.DateFormat;
+import android.view.View.OnLongClickListener;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -24,6 +27,7 @@ public class EditItemActivity extends ActionBarActivity {
     private EditText etItemValue;
     private TextView tvDueDate;
     private TextView tvItemFormTitle;
+    private Button bDueDate;
     private int itemPosition;
     private Item item;
 
@@ -35,8 +39,10 @@ public class EditItemActivity extends ActionBarActivity {
         etItemValue = (EditText) findViewById(R.id.etItemValue);
         tvDueDate = (TextView) findViewById(R.id.tvDueDate);
         tvItemFormTitle = (TextView) findViewById(R.id.tvItemFormTitle);
+        bDueDate = (Button) findViewById(R.id.bDueDate);
 
         tvItemFormTitle.setText(R.string.edit_form_title);
+        bDueDate.setText(R.string.edit_due_date_button);
 
         long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);
         item = Item.getItemWithId(item_id);
@@ -45,6 +51,8 @@ public class EditItemActivity extends ActionBarActivity {
         setItemEditFieldText();
         if(item.isDueDateSet())
             setItemDueDateText();
+
+        setupDueDateListener();
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -105,6 +113,18 @@ public class EditItemActivity extends ActionBarActivity {
         }
     }
 
+    private void setupDueDateListener(){
+        tvDueDate.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                item.removeDueDate();
+                setItemDueDateText();
+                return false;
+            }
+        });
+    }
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -116,9 +136,14 @@ public class EditItemActivity extends ActionBarActivity {
     }
 
     private void setItemDueDateText(){
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(item.getDueDate());
-        String formatted_date = DateFormat.getDateFormat(this).format(cal.getTime());
-        tvDueDate.setText(formatted_date);
+        String formatted_text = "";
+
+        if(item.isDueDateSet()) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(item.getDueDate());
+            formatted_text = DateFormat.getDateFormat(this).format(cal.getTime());
+        }
+
+        tvDueDate.setText(formatted_text);
     }
 }
