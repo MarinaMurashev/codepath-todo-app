@@ -67,7 +67,9 @@ public class EditItemActivity extends ActionBarActivity {
                 day = cal.get(Calendar.DAY_OF_MONTH);
             }
 
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            return datePickerDialog;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {

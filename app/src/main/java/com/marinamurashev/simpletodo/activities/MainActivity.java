@@ -92,17 +92,4 @@ public class MainActivity extends ActionBarActivity {
             itemsAdapter.notifyDataSetChanged();
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        hideSoftKeyboard();
-    }
-
-    private void hideSoftKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if(imm.isAcceptingText()) {
-            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-        }
-    }
 }
