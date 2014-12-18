@@ -22,12 +22,12 @@
         android:id="@+id/etItemValue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/tvItemFormTitle"
-        android:layout_alignEnd="@+id/tvItemFormTitle"
         android:layout_below="@+id/tvItemFormTitle"
         android:textColor="#ff36016d"
         android:imeOptions="actionDone"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:layout_alignRight="@+id/tvDueDate"
+        android:layout_alignEnd="@+id/tvDueDate" />
 
     <Button
         android:layout_width="wrap_content"
@@ -59,6 +59,7 @@
         android:layout_alignBottom="@+id/bDueDate"
         android:layout_alignRight="@+id/bSaveItem"
         android:layout_alignEnd="@+id/bSaveItem"
-        android:layout_toRightOf="@+id/etItemValue"
-        android:layout_toEndOf="@+id/etItemValue" />
+        android:layout_toEndOf="@+id/bDueDate"
+        android:layout_toRightOf="@+id/bDueDate"
+        android:padding="10dp" />
 </RelativeLayout>

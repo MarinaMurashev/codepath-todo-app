@@ -9,18 +9,7 @@
         android:textStyle="bold"
         android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha"
         style="@style/TextAppearance.AppCompat.Medium"
-        android:padding="@dimen/abc_text_size_medium_material"
-        android:layout_toLeftOf="@+id/tvDueDateLabel"
-        android:layout_toStartOf="@+id/tvDueDateLabel" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/tvDueDateLabel"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/tvDueDate"
-        android:layout_alignStart="@+id/tvDueDate" />
+        android:padding="@dimen/abc_text_size_medium_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +17,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/tvDueDate"
         android:layout_alignBottom="@+id/tvName"
-        android:layout_below="@+id/tvDueDateLabel"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

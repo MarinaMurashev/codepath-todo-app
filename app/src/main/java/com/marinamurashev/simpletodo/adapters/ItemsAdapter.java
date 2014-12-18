@@ -18,7 +18,6 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
     private static class ViewHolder {
         TextView name;
         TextView dueDate;
-        TextView dueDateLabel;
     }
 
     public ItemsAdapter(Context context, ArrayList<Item> items) {
@@ -36,7 +35,6 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
             convertView = inflater.inflate(R.layout.item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
             viewHolder.dueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
-            viewHolder.dueDateLabel = (TextView) convertView.findViewById(R.id.tvDueDateLabel);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -44,11 +42,11 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
 
         viewHolder.name.setText(item.getName());
         if(item.isDueDateSet()) {
-            viewHolder.dueDate.setText(DateFormat.getDateFormat(getContext()).format(item.getDueDate()));
-            viewHolder.dueDateLabel.setText(getContext().getResources().getString(R.string.list_due_date_label));
+            String prefix = getContext().getResources().getString(R.string.list_due_date_label);
+            String text = DateFormat.getDateFormat(getContext()).format(item.getDueDate());
+            viewHolder.dueDate.setText(prefix + " " + text);
         } else {
             viewHolder.dueDate.setText("");
-            viewHolder.dueDateLabel.setText("");
         }
 
         return convertView;

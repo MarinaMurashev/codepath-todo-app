@@ -50,6 +50,10 @@ public class Item extends Model {
         return false;
     }
 
+    public void removeDueDate(){
+        dueDate = null;
+    }
+
     public static Item getItemWithId(long id) {
         return new Select().from(Item.class).where("id = ?", id).executeSingle();
     }
