@@ -22,5 +22,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.2'
-    compile files('libs/ActiveAndroid-3.1-08c6335cd.jar')
+    compile files('libs/activeandroid-3.0.jar')
 }

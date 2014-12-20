@@ -18,14 +18,26 @@ public class Item extends Model {
     @Column(name = "DueDate")
     private Date dueDate;
 
+    @Column(name = "Priority")
+    private String priority;
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public Item(){
         super();
     }
 
-    public Item(String name, Date dueDate){
+    public Item(String name, Date dueDate , String priority){
         super();
         this.name = name;
         this.dueDate = dueDate;
+        this.priority = priority;
     }
 
     public String getName(){
