@@ -5,6 +5,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.marinamurashev.simpletodo.enumerables.ItemPriority;
 
 import java.util.Date;
 import java.util.List;
@@ -19,21 +20,22 @@ public class Item extends Model {
     private Date dueDate;
 
     @Column(name = "Priority")
-    private String priority;
+    private int priority;
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
     public Item(){
         super();
+        this.priority = ItemPriority.LOW.getLevelCode();
     }
 
-    public Item(String name, Date dueDate , String priority){
+    public Item(String name, Date dueDate , int priority){
         super();
         this.name = name;
         this.dueDate = dueDate;

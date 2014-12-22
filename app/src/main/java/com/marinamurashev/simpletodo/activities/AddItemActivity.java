@@ -3,6 +3,7 @@ package com.marinamurashev.simpletodo.activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marinamurashev.simpletodo.R;
+import com.marinamurashev.simpletodo.enumerables.ItemPriority;
 import com.marinamurashev.simpletodo.models.Item;
 
 import java.util.Calendar;
@@ -43,6 +47,8 @@ public class AddItemActivity extends ActionBarActivity {
         bDueDate.setText(R.string.add_due_date_button);
 
         setupDueDateListener();
+        setupPriorityRadioButtons();
+        setupPriorityRadioGroupListener();
     }
 
 
@@ -106,6 +112,35 @@ public class AddItemActivity extends ActionBarActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    private void setupPriorityRadioGroupListener() {
+
+        RadioGroup rgPriority = (RadioGroup) findViewById(R.id.rgPriority);
+        rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rbLowPriority: item.setPriority(ItemPriority.LOW.getLevelCode());
+                    case R.id.rbMediumPriority: item.setPriority(ItemPriority.MEDIUM.getLevelCode());
+                    case R.id.rbHighPriority: item.setPriority(ItemPriority.HIGH.getLevelCode());
+                    default: break;
+                }
+            }
+        });
+
+    }
+
+    private void setupPriorityRadioButtons(){
+        RadioButton rbLowPriority = (RadioButton) findViewById(R.id.rbLowPriority);
+        RadioButton rbMediumPriority = (RadioButton) findViewById(R.id.rbMediumPriority);
+        RadioButton rbHighPriority = (RadioButton) findViewById(R.id.rbHighPriority);
+
+        rbLowPriority.setText(ItemPriority.LOW.getLevelText());
+        rbMediumPriority.setText(ItemPriority.MEDIUM.getLevelText());
+        rbHighPriority.setText(ItemPriority.HIGH.getLevelText());
+
+        rbLowPriority.setChecked(true);
     }
 
 }
