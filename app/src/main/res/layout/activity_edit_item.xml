@@ -35,19 +35,61 @@
         android:text="@string/edit_save"
         android:onClick="onSaveItem"
         android:id="@+id/bSaveItem"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/rgPriority"
+        android:layout_alignEnd="@+id/rgPriority" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/priority_title"
+        android:id="@+id/tvPriorityTitle"
+        android:layout_below="@+id/etItemValue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/rgPriority"
+        android:layout_below="@+id/tvPriorityTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/tvDueDate">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/low_priority"
+            android:id="@+id/rbLowPriority"
+            android:checked="true"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medium_priority"
+            android:id="@+id/rbMediumPriority" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/high_priority"
+            android:id="@+id/rbHighPriority" />
+    </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bDueDate"
         android:onClick="showDatePickerDialog"
+        android:layout_marginTop="147dp"
         android:layout_below="@+id/etItemValue"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,4 +103,5 @@
         android:layout_toEndOf="@+id/bDueDate"
         android:layout_toRightOf="@+id/bDueDate"
         android:padding="10dp" />
+
 </RelativeLayout>
