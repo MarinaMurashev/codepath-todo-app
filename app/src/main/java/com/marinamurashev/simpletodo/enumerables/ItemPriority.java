@@ -5,6 +5,7 @@ public enum ItemPriority {
 
     private int levelCode;
     private String levelText;
+
     private ItemPriority(int value, String levelText) {
         this.levelCode = value;
         this.levelText = levelText;
@@ -16,5 +17,15 @@ public enum ItemPriority {
 
     public String getLevelText(){
         return this.levelText;
+    }
+
+    public static ItemPriority fromCode(int levelCode){
+        switch (levelCode){
+            case 5: return ItemPriority.LOW;
+            case 10: return ItemPriority.MEDIUM;
+            case 15: return ItemPriority.HIGH;
+        }
+
+        return null;
     }
 }

@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marinamurashev.simpletodo.R;
+import com.marinamurashev.simpletodo.enumerables.ItemPriority;
 import com.marinamurashev.simpletodo.models.Item;
 
 import android.text.format.DateFormat;
@@ -53,6 +56,8 @@ public class EditItemActivity extends ActionBarActivity {
             setItemDueDateText();
 
         setupDueDateListener();
+        setupPriorityRadioButtons();
+        setupPriorityRadioGroupListener();
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -145,5 +150,47 @@ public class EditItemActivity extends ActionBarActivity {
         }
 
         tvDueDate.setText(formatted_text);
+    }
+
+    private void setupPriorityRadioGroupListener() {
+
+        RadioGroup rgPriority = (RadioGroup) findViewById(R.id.rgPriority);
+        rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rbLowPriority:
+                        item.setPriority(ItemPriority.LOW.getLevelCode());
+                        break;
+                    case R.id.rbMediumPriority:
+                        item.setPriority(ItemPriority.MEDIUM.getLevelCode());
+                        break;
+                    case R.id.rbHighPriority:
+                        item.setPriority(ItemPriority.HIGH.getLevelCode());
+                        break;
+                    default: break;
+                }
+            }
+        });
+
+    }
+
+    private void setupPriorityRadioButtons(){
+        RadioButton rbLowPriority = (RadioButton) findViewById(R.id.rbLowPriority);
+        RadioButton rbMediumPriority = (RadioButton) findViewById(R.id.rbMediumPriority);
+        RadioButton rbHighPriority = (RadioButton) findViewById(R.id.rbHighPriority);
+
+        rbLowPriority.setText(ItemPriority.LOW.getLevelText());
+        rbMediumPriority.setText(ItemPriority.MEDIUM.getLevelText());
+        rbHighPriority.setText(ItemPriority.HIGH.getLevelText());
+
+        ItemPriority itemPriority = ItemPriority.fromCode(item.getPriority());
+        if(itemPriority.equals(ItemPriority.HIGH)){
+            rbHighPriority.setChecked(true);
+        } else if(itemPriority.equals(ItemPriority.MEDIUM)){
+            rbMediumPriority.setChecked(true);
+        } else{
+            rbLowPriority.setChecked(true);
+        }
     }
 }
