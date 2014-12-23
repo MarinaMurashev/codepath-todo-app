@@ -29,7 +29,6 @@ import java.util.Calendar;
 public class EditItemActivity extends ActionBarActivity {
     private EditText etItemValue;
     private TextView tvDueDate;
-    private TextView tvItemFormTitle;
     private Button bDueDate;
     private int itemPosition;
     private Item item;
@@ -41,10 +40,8 @@ public class EditItemActivity extends ActionBarActivity {
 
         etItemValue = (EditText) findViewById(R.id.etItemValue);
         tvDueDate = (TextView) findViewById(R.id.tvDueDate);
-        tvItemFormTitle = (TextView) findViewById(R.id.tvItemFormTitle);
         bDueDate = (Button) findViewById(R.id.bDueDate);
 
-        tvItemFormTitle.setText(R.string.edit_form_title);
         bDueDate.setText(R.string.edit_due_date_button);
 
         long item_id = getIntent().getLongExtra(MainActivity.ITEM_ID_EXTRA, 0);

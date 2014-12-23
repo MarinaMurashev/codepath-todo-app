@@ -43,7 +43,6 @@ public class AddItemActivity extends ActionBarActivity {
         tvItemFormTitle = (TextView) findViewById(R.id.tvItemFormTitle);
         bDueDate = (Button) findViewById(R.id.bDueDate);
 
-        tvItemFormTitle.setText(R.string.add_form_title);
         bDueDate.setText(R.string.add_due_date_button);
 
         setupDueDateListener();
