@@ -1,0 +1,1 @@
+UPDATE Items SET Priority = "5" WHERE Priority is null or Priority = "";
