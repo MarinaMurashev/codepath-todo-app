@@ -1,45 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="match_parent"
-        android:layout_height="67dp"
-        android:textColor="#ff36016d"
-        android:textStyle="bold"
-        android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha"
-        style="@style/TextAppearance.AppCompat.Medium"
-        android:gravity="left"
-        android:paddingTop="10dp" />
+    android:layout_height="match_parent"
+    android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textColor="#ff36016d"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="left"
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvPriority"
-            android:layout_alignTop="@+id/tvDueDate"
-            android:layout_weight="1"
-            android:gravity="left"/>
-
-        <TextView
-            android:layout_width="154dp"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
             android:id="@+id/tvDueDate"
-            android:gravity="right"/>
+            android:gravity="center|right"/>
 
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/tvPriority"
+        android:gravity="left"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

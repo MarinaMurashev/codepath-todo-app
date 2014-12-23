@@ -121,9 +121,15 @@ public class AddItemActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
-                    case R.id.rbLowPriority: item.setPriority(ItemPriority.LOW.getLevelCode());
-                    case R.id.rbMediumPriority: item.setPriority(ItemPriority.MEDIUM.getLevelCode());
-                    case R.id.rbHighPriority: item.setPriority(ItemPriority.HIGH.getLevelCode());
+                    case R.id.rbLowPriority:
+                        item.setPriority(ItemPriority.LOW.getLevelCode());
+                        break;
+                    case R.id.rbMediumPriority:
+                        item.setPriority(ItemPriority.MEDIUM.getLevelCode());
+                        break;
+                    case R.id.rbHighPriority:
+                        item.setPriority(ItemPriority.HIGH.getLevelCode());
+                        break;
                     default: break;
                 }
             }
