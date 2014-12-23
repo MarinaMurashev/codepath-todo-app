@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.marinamurashev.simpletodo.R;
+import com.marinamurashev.simpletodo.enumerables.ItemPriority;
 import com.marinamurashev.simpletodo.models.Item;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
     private static class ViewHolder {
         TextView name;
         TextView dueDate;
+        TextView priority;
     }
 
     public ItemsAdapter(Context context, ArrayList<Item> items) {
@@ -35,6 +37,7 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
             convertView = inflater.inflate(R.layout.item, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
             viewHolder.dueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
+            viewHolder.priority = (TextView) convertView.findViewById(R.id.tvPriority);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -48,6 +51,9 @@ public class ItemsAdapter extends ArrayAdapter<Item>{
         } else {
             viewHolder.dueDate.setText("");
         }
+        ItemPriority itemPriority = ItemPriority.fromCode(item.getPriority());
+        if(itemPriority != null)
+            viewHolder.priority.setText(itemPriority.getLevelText() + " priority");
 
         return convertView;
     }
