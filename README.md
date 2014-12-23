@@ -2,7 +2,7 @@
 
 This is an Android demo application for managing Todo items: add, edit, and delete items. See the [Todo App Tutorial](http://courses.codepath.com/snippets/intro_to_android/prework) for a step-by-step tutorial for creating this app.
 
-Time spent: 14 hours spent in total
+Time spent: 25 hours spent in total
 
 Completed user stories:
 
@@ -12,6 +12,7 @@ Completed user stories:
  * [x] Optional: Use custom adapter for the items in the list.
  * [x] Optional: Persists todo items in SQLite.
  * [x] Optional: Adds optional due date to item.
+ * [x] Optional: Adds priority to item.
 
 Notes:
 
@@ -23,6 +24,7 @@ Spent time on the following:
 * Due date cannot be before today.
 * Changes function of the return key on the keyboard to a 'done' key when editing the item's text.
 * Able to clear date once set: long click on the displayed date from the AddItemActivity or EditItemActivity.
+* Priority is associated with a number so it is easily sortable if need be. The assigned numbers are incremented by 5 so if there need to be levels of priority in between, they can still be added in later without a sorting problem.
 
 Walkthrough of all user stories:
 
