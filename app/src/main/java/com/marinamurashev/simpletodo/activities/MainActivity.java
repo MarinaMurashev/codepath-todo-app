@@ -3,6 +3,8 @@ package com.marinamurashev.simpletodo.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +14,13 @@ import android.widget.ListView;
 
 import com.marinamurashev.simpletodo.R;
 import com.marinamurashev.simpletodo.adapters.ItemsAdapter;
+import com.marinamurashev.simpletodo.fragments.EditItemFragment;
 import com.marinamurashev.simpletodo.models.Item;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
     private ArrayList<Item> items;
     private ItemsAdapter itemsAdapter;
     private ListView lvItems;
@@ -66,11 +69,16 @@ public class MainActivity extends ActionBarActivity {
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View item, int position, long id){
-                    Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-                    intent.putExtra(ITEM_ID_EXTRA, items.get(position).getId());
-                    intent.putExtra(ITEM_POSITION_EXTRA, position);
+//                    Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+//                    intent.putExtra(ITEM_ID_EXTRA, items.get(position).getId());
+//                    intent.putExtra(ITEM_POSITION_EXTRA, position);
+//
+//                    startActivityForResult(intent, EDIT_REQUEST_CODE);
 
-                    startActivityForResult(intent, EDIT_REQUEST_CODE);
+                    FragmentManager fm = getSupportFragmentManager();
+                    EditItemFragment editNameDialog = EditItemFragment.newInstance();
+                    editNameDialog.show(fm, "fragment_edit_item");
+
                 }
             }
         );
