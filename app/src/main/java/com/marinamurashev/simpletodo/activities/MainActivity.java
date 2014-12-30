@@ -25,6 +25,7 @@ public class MainActivity extends FragmentActivity {
     private ItemsAdapter itemsAdapter;
     private ListView lvItems;
 
+    public static final String EDIT_ITEM_DIALOG = "fragment edit item";
     public static final String ITEM_POSITION_EXTRA = "item position";
     public static final String ITEM_ID_EXTRA = "item id";
 
@@ -76,8 +77,8 @@ public class MainActivity extends FragmentActivity {
 //                    startActivityForResult(intent, EDIT_REQUEST_CODE);
 
                     FragmentManager fm = getSupportFragmentManager();
-                    EditItemFragment editNameDialog = EditItemFragment.newInstance();
-                    editNameDialog.show(fm, "fragment_edit_item");
+                    EditItemFragment editNameDialog = EditItemFragment.newInstance(items.get(position).getId(), position);
+                    editNameDialog.show(fm, EDIT_ITEM_DIALOG);
 
                 }
             }
