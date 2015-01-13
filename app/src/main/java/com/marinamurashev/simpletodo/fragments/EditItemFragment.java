@@ -35,7 +35,8 @@ public class EditItemFragment extends DialogFragment {
 
     public static final String ITEM_POSITION_EXTRA = "item position";
     public static final String ITEM_ID_EXTRA = "item id";
-    public static final String DIALOG_DATE = "dialog date";
+    private static final String DIALOG_DATE = "dialog date";
+    private static final int REQUEST_DATE = 0;
 
     public EditItemFragment(){
 
@@ -150,7 +151,8 @@ public class EditItemFragment extends DialogFragment {
         bDueDate.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                DatePickerFragment dialog = new DatePickerFragment();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(item.getDueDate());
+                dialog.setTargetFragment(EditItemFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);
             }
         });
